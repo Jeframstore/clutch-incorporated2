@@ -15,37 +15,33 @@
                 <h1>Daily Tasks</h1>
                 <p>Complete your daily tasks to earn rewards</p>
 
-                <!-- Task Sections -->
-                <div class="task-sections">
-                    <!-- Past Tasks Section -->
-                    <div class="task-section past-tasks-section">
-                        <h2 class="section-title past-title">
-                            <i class="fas fa-history"></i> Past Tasks
-                        </h2>
-                        <div class="task-section-content" id="pastTasks">
-                            <!-- Past tasks will be loaded here -->
+                <!-- Task Slider -->
+                <div class="task-slider-container">
+                    <button class="slider-nav-btn slider-prev" id="sliderPrev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="task-slider">
+                        <div class="task-slide" id="taskSlide">
+                            <!-- Task content will be loaded here -->
                         </div>
                     </div>
+                    
+                    <button class="slider-nav-btn slider-next" id="sliderNext">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
 
-                    <!-- Present Task Section -->
-                    <div class="task-section present-task-section">
-                        <h2 class="section-title present-title">
-                            <i class="fas fa-clock"></i> Present Task
-                        </h2>
-                        <div class="task-section-content" id="presentTask">
-                            <!-- Present task will be loaded here -->
-                        </div>
-                    </div>
+                <!-- Slider Indicators -->
+                <div class="slider-indicators">
+                    <span class="indicator" data-slide="0"></span>
+                    <span class="indicator" data-slide="1"></span>
+                    <span class="indicator" data-slide="2"></span>
+                </div>
 
-                    <!-- Next Task Section -->
-                    <div class="task-section next-task-section">
-                        <h2 class="section-title next-title">
-                            <i class="fas fa-forward"></i> Next Task
-                        </h2>
-                        <div class="task-section-content" id="nextTask">
-                            <!-- Next task will be loaded here -->
-                        </div>
-                    </div>
+                <!-- Slide Labels -->
+                <div class="slide-labels">
+                    <span class="slide-label" id="slideLabel">Past Tasks</span>
                 </div>
             </div>
         </section>
