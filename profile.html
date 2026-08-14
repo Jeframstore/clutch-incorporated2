@@ -41,14 +41,6 @@
                         <label>Total Amount</label>
                         <p id="userTotalAmount">$0.00</p>
                     </div>
-
-                    <div class="info-item customer-service-info">
-                        <label>Customer Service</label>
-                        <p id="customerServiceTelegram">-</p>
-                        <a id="customerServiceLink" href="#" target="_blank" style="display: none;">
-                            <i class="fab fa-telegram"></i> Contact Support
-                        </a>
-                    </div>
                 </div>
 
                 <div class="profile-actions">
@@ -123,27 +115,6 @@
             document.getElementById('userNumber').textContent = userNumber;
             document.getElementById('userInvitationCode').textContent = userInvitationCode;
             document.getElementById('userTotalAmount').textContent = `$${userTotalAmount}`;
-
-            // Load global customer service configuration
-            const customerServiceConfig = JSON.parse(localStorage.getItem('customerServiceConfig') || '{}');
-            console.log('Customer Service Config:', customerServiceConfig);
-            
-            if (customerServiceConfig.telegram) {
-                document.getElementById('customerServiceTelegram').textContent = `@${customerServiceConfig.telegram}`;
-                const customerServiceLink = document.getElementById('customerServiceLink');
-                customerServiceLink.href = `https://t.me/${customerServiceConfig.telegram}`;
-                customerServiceLink.style.display = 'inline-flex';
-                customerServiceLink.style.alignItems = 'center';
-                customerServiceLink.style.gap = '0.5rem';
-                customerServiceLink.style.marginTop = '0.5rem';
-                customerServiceLink.style.color = '#2563eb';
-                customerServiceLink.style.textDecoration = 'none';
-            }
-
-            // Edit profile button
-            document.getElementById('editProfileBtn').addEventListener('click', function() {
-                window.location.href = 'edit-profile.html';
-            });
 
             // Logout button
             document.getElementById('logoutBtn').addEventListener('click', function() {

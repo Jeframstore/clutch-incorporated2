@@ -23,9 +23,9 @@
                         </div>
                         <div class="chat-info">
                             <h2>Customer Service</h2>
-                            <p>Connect with our customer service team for general inquiries and support</p>
+                            <p id="customerServiceInfo">Connect with our customer service team for general inquiries and support</p>
                         </div>
-                        <a href="https://t.me/clutch_customerservice" target="_blank" class="telegram-btn">
+                        <a href="#" id="customerServiceBtn" target="_blank" class="telegram-btn">
                             <i class="fab fa-telegram"></i>
                             Connect via Telegram
                         </a>
@@ -112,10 +112,24 @@
         document.addEventListener('DOMContentLoaded', function() {
             const tutorTelegramBtn = document.getElementById('tutorTelegramBtn');
             const tutorInfo = document.getElementById('tutorInfo');
+            const customerServiceBtn = document.getElementById('customerServiceBtn');
+            const customerServiceInfo = document.getElementById('customerServiceInfo');
             const adminPanel = document.getElementById('adminPanel');
             const userSelect = document.getElementById('userSelect');
             const tutorUsername = document.getElementById('tutorUsername');
             const assignTutorBtn = document.getElementById('assignTutorBtn');
+
+            // Load customer service configuration
+            const customerServiceConfig = JSON.parse(localStorage.getItem('customerServiceConfig') || '{}');
+            if (customerServiceConfig.telegram) {
+                customerServiceBtn.href = `https://t.me/${customerServiceConfig.telegram}`;
+                customerServiceInfo.textContent = `Connect with our customer service team: @${customerServiceConfig.telegram}`;
+            } else {
+                customerServiceBtn.href = '#';
+                customerServiceBtn.style.pointerEvents = 'none';
+                customerServiceBtn.style.opacity = '0.5';
+                customerServiceInfo.textContent = 'Customer service not available. Please contact admin.';
+            }
 
             // Load user's assigned tutor
             const currentUserEmail = localStorage.getItem('userEmail');
