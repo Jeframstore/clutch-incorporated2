@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Clutch Incorporated</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <main>
+        <section class="section">
+            <div class="profile-container">
+                <div class="welcome-message">
+                    <h1 id="welcomeMessage">Welcome back!</h1>
+                </div>
+
+                <div class="profile-info">
+                    <div class="info-item">
+                        <label>Name</label>
+                        <p id="userName">-</p>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Email</label>
+                        <p id="userEmail">-</p>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Number</label>
+                        <p id="userNumber">-</p>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Invitation Code</label>
+                        <p id="userInvitationCode">-</p>
+                    </div>
+
+                    <div class="info-item">
+                        <label>Total Amount</label>
+                        <p id="userTotalAmount">$0.00</p>
+                    </div>
+
+                    <div class="info-item customer-service-info">
+                        <label>Customer Service</label>
+                        <p id="customerServiceTelegram">-</p>
+                        <a id="customerServiceLink" href="#" target="_blank" style="display: none;">
+                            <i class="fab fa-telegram"></i> Contact Support
+                        </a>
+                    </div>
+                </div>
+
+                <div class="profile-actions">
+                    <button class="edit-profile-btn" id="editProfileBtn">
+                        <i class="fas fa-edit"></i>
+                        Edit Profile
+                    </button>
+                    <button class="logout-btn" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Liquid Navigation at Bottom -->
+    <nav class="liquid-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li>
+                    <a href="home.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="nav-link active">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trade.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Trade</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat.html" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+    <script src="auth-check.js"></script>
+    <script>
+        // Load user data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName') || 'User';
+            const userEmail = localStorage.getItem('userEmail') || '-';
+            const userNumber = localStorage.getItem('userNumber') || '-';
+            const userInvitationCode = localStorage.getItem('userInvitationCode') || '-';
+            const userTotalAmount = localStorage.getItem('userTotalAmount') || '0.00';
+
+            // Set welcome message with user name
+            document.getElementById('welcomeMessage').textContent = `Welcome back, ${userName}!`;
+            
+            // Set user information
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userEmail').textContent = userEmail;
+            document.getElementById('userNumber').textContent = userNumber;
+            document.getElementById('userInvitationCode').textContent = userInvitationCode;
+            document.getElementById('userTotalAmount').textContent = `$${userTotalAmount}`;
+
+            // Load global customer service configuration
+            const customerServiceConfig = JSON.parse(localStorage.getItem('customerServiceConfig') || '{}');
+            console.log('Customer Service Config:', customerServiceConfig);
+            
+            if (customerServiceConfig.telegram) {
+                document.getElementById('customerServiceTelegram').textContent = `@${customerServiceConfig.telegram}`;
+                const customerServiceLink = document.getElementById('customerServiceLink');
+                customerServiceLink.href = `https://t.me/${customerServiceConfig.telegram}`;
+                customerServiceLink.style.display = 'inline-flex';
+                customerServiceLink.style.alignItems = 'center';
+                customerServiceLink.style.gap = '0.5rem';
+                customerServiceLink.style.marginTop = '0.5rem';
+                customerServiceLink.style.color = '#2563eb';
+                customerServiceLink.style.textDecoration = 'none';
+            }
+
+            // Edit profile button
+            document.getElementById('editProfileBtn').addEventListener('click', function() {
+                window.location.href = 'edit-profile.html';
+            });
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                localStorage.removeItem('isAuthenticated');
+                localStorage.removeItem('rememberedEmail');
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userNumber');
+                localStorage.removeItem('userInvitationCode');
+                localStorage.removeItem('userTotalAmount');
+                window.location.href = 'auth.html';
+            });
+        });
+    </script>
+</body>
+</html>

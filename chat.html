@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - Clutch Incorporated</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <main>
+        <section class="section">
+            <div class="chat-container">
+                <h1>Chat Support</h1>
+                <p>Connect with our support team and your personal tutor</p>
+
+                <div class="chat-options">
+                    <!-- Customer Service Section -->
+                    <div class="chat-option">
+                        <div class="chat-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <div class="chat-info">
+                            <h2>Customer Service</h2>
+                            <p>Connect with our customer service team for general inquiries and support</p>
+                        </div>
+                        <a href="https://t.me/clutch_customerservice" target="_blank" class="telegram-btn">
+                            <i class="fab fa-telegram"></i>
+                            Connect via Telegram
+                        </a>
+                    </div>
+
+                    <!-- Tutor Section -->
+                    <div class="chat-option">
+                        <div class="chat-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <div class="chat-info">
+                            <h2>Your Tutor</h2>
+                            <p id="tutorInfo">Connect with your assigned personal tutor for guidance and learning</p>
+                        </div>
+                        <a href="#" id="tutorTelegramBtn" target="_blank" class="telegram-btn">
+                            <i class="fab fa-telegram"></i>
+                            Connect via Telegram
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Admin Panel (Hidden by default, shown for admin users) -->
+                <div class="admin-panel" id="adminPanel">
+                    <h3>Admin Panel - Assign Tutor</h3>
+                    <div class="admin-form">
+                        <div class="form-group">
+                            <label for="userSelect">Select User</label>
+                            <select id="userSelect">
+                                <option value="">Select a user...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tutorUsername">Tutor Telegram Username</label>
+                            <input type="text" id="tutorUsername" placeholder="Enter tutor's Telegram username">
+                        </div>
+                        <button type="button" class="submit-btn" id="assignTutorBtn">Assign Tutor</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Liquid Navigation at Bottom -->
+    <nav class="liquid-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li>
+                    <a href="home.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="nav-link">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trade.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Trade</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat.html" class="nav-link active">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+    <script src="auth-check.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tutorTelegramBtn = document.getElementById('tutorTelegramBtn');
+            const tutorInfo = document.getElementById('tutorInfo');
+            const adminPanel = document.getElementById('adminPanel');
+            const userSelect = document.getElementById('userSelect');
+            const tutorUsername = document.getElementById('tutorUsername');
+            const assignTutorBtn = document.getElementById('assignTutorBtn');
+
+            // Load user's assigned tutor
+            const currentUserEmail = localStorage.getItem('userEmail');
+            const tutorAssignments = JSON.parse(localStorage.getItem('tutorAssignments') || '{}');
+            const assignedTutor = tutorAssignments[currentUserEmail];
+
+            if (assignedTutor) {
+                tutorTelegramBtn.href = `https://t.me/${assignedTutor}`;
+                tutorInfo.textContent = `Your assigned tutor: @${assignedTutor}`;
+            } else {
+                tutorTelegramBtn.href = '#';
+                tutorTelegramBtn.style.pointerEvents = 'none';
+                tutorTelegramBtn.style.opacity = '0.5';
+                tutorInfo.textContent = 'No tutor assigned yet. Contact customer service.';
+            }
+
+            // Check if user is admin (you can modify this logic based on your admin check)
+            const isAdmin = localStorage.getItem('isAdmin') === 'true';
+            
+            if (isAdmin) {
+                adminPanel.style.display = 'block';
+                
+                // Load all users for admin panel
+                const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+                allUsers.forEach(user => {
+                    const option = document.createElement('option');
+                    option.value = user.email;
+                    option.textContent = `${user.name} (${user.email})`;
+                    userSelect.appendChild(option);
+                });
+
+                // Assign tutor functionality
+                assignTutorBtn.addEventListener('click', function() {
+                    const selectedUser = userSelect.value;
+                    const tutorName = tutorUsername.value.trim();
+
+                    if (!selectedUser || !tutorName) {
+                        alert('Please select a user and enter tutor username');
+                        return;
+                    }
+
+                    // Update tutor assignments
+                    tutorAssignments[selectedUser] = tutorName;
+                    localStorage.setItem('tutorAssignments', JSON.stringify(tutorAssignments));
+
+                    alert(`Tutor @${tutorName} assigned to ${selectedUser}`);
+                    tutorUsername.value = '';
+                    userSelect.value = '';
+                });
+            }
+        });
+    </script>
+</body>
+</html>

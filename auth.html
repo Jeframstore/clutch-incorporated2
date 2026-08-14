@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Clutch Incorporated</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <main>
+        <section class="section">
+            <div class="auth-container">
+                <!-- Logo Placeholder -->
+                <div class="logo-placeholder">
+                    <i class="fas fa-cube"></i>
+                    <h2>Clutch Incorporated</h2>
+                </div>
+
+                <!-- Auth Toggle -->
+                <div class="auth-toggle">
+                    <button class="toggle-btn active" id="loginToggle">Login</button>
+                    <button class="toggle-btn" id="registerToggle">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <form class="auth-form active" id="loginForm">
+                    <div class="form-group">
+                        <label for="loginEmail">Email or Number</label>
+                        <input type="text" id="loginEmail" placeholder="Enter email or number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="loginPassword" placeholder="Enter password" required>
+                            <button type="button" class="toggle-password" data-target="loginPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginUserCode">User Code</label>
+                        <input type="text" id="loginUserCode" placeholder="Enter your user code" required>
+                    </div>
+
+                    <div class="form-options">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="rememberMe">
+                            <span>Remember me</span>
+                        </label>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Login</button>
+                </form>
+
+                <!-- Register Form -->
+                <form class="auth-form" id="registerForm">
+                    <div class="form-group">
+                        <label for="registerName">Full Name</label>
+                        <input type="text" id="registerName" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" placeholder="Enter email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerNumber">Number</label>
+                        <input type="tel" id="registerNumber" placeholder="Enter phone number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <div class="password-input">
+                            <input type="password" id="registerPassword" placeholder="Create password" required>
+                            <button type="button" class="toggle-password" data-target="registerPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="registerInvitationCode">Invitation Code</label>
+                        <input type="text" id="registerInvitationCode" placeholder="Enter invitation code" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Send code to:</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="codeSendMethod" value="email" checked>
+                                <span>Email</span>
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="codeSendMethod" value="phone">
+                                <span>Phone</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Register</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="auth.js"></script>
+</body>
+</html>

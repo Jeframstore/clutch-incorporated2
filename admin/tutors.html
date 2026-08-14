@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutors - Admin Panel</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-logo">
+            <i class="fas fa-cube"></i>
+            <h2>Clutch Admin</h2>
+        </div>
+        <div class="admin-user">
+            <span id="adminUserName">Admin</span>
+            <button class="admin-logout-btn" id="adminLogoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Horizontal Navigation -->
+    <nav class="admin-nav">
+        <div class="admin-nav-container">
+            <a href="dashboard.html" class="admin-nav-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="users.html" class="admin-nav-link">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="tasks.html" class="admin-nav-link">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="tutors.html" class="admin-nav-link active">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Tutors</span>
+            </a>
+            <a href="customer-service.html" class="admin-nav-link">
+                <i class="fas fa-headset"></i>
+                <span>Customer Service</span>
+            </a>
+            <a href="admins.html" class="admin-nav-link">
+                <i class="fas fa-user-shield"></i>
+                <span>Admins</span>
+            </a>
+            <a href="settings.html" class="admin-nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <section class="admin-section">
+            <div class="admin-welcome">
+                <h1>Tutor Management</h1>
+                <p>Assign tutors to users and manage tutor relationships</p>
+            </div>
+
+            <div class="admin-content-card">
+                <h2>Assign Tutor to User</h2>
+                <form class="admin-form" id="assignTutorForm">
+                    <div class="admin-form-group">
+                        <label for="tutorUserSelect">Select User</label>
+                        <select id="tutorUserSelect" required>
+                            <option value="">Select a user...</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="tutorUsername">Tutor Telegram Username</label>
+                        <input type="text" id="tutorUsername" placeholder="Enter tutor's Telegram username (without @)" required>
+                    </div>
+                    <button type="submit" class="admin-btn admin-btn-primary">
+                        <i class="fas fa-user-plus"></i> Assign Tutor
+                    </button>
+                </form>
+            </div>
+
+            <div class="admin-content-card">
+                <h2>Tutor Assignments</h2>
+                <div style="overflow-x: auto;">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Email</th>
+                                <th>Assigned Tutor</th>
+                                <th>Telegram Link</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tutorAssignmentsTableBody">
+                            <!-- Tutor assignments will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+    <script src="admin-auth.js"></script>
+    <script src="tutors.js"></script>
+</body>
+</html>

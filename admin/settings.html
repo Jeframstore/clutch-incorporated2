@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Admin Panel</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-logo">
+            <i class="fas fa-cube"></i>
+            <h2>Clutch Admin</h2>
+        </div>
+        <div class="admin-user">
+            <span id="adminUserName">Admin</span>
+            <button class="admin-logout-btn" id="adminLogoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Horizontal Navigation -->
+    <nav class="admin-nav">
+        <div class="admin-nav-container">
+            <a href="dashboard.html" class="admin-nav-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="users.html" class="admin-nav-link">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="tasks.html" class="admin-nav-link">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="tutors.html" class="admin-nav-link">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Tutors</span>
+            </a>
+            <a href="customer-service.html" class="admin-nav-link">
+                <i class="fas fa-headset"></i>
+                <span>Customer Service</span>
+            </a>
+            <a href="admins.html" class="admin-nav-link">
+                <i class="fas fa-user-shield"></i>
+                <span>Admins</span>
+            </a>
+            <a href="settings.html" class="admin-nav-link active">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <section class="admin-section">
+            <div class="admin-welcome">
+                <h1>System Settings</h1>
+                <p>Configure platform settings and preferences</p>
+            </div>
+
+            <div class="admin-content-card">
+                <h2>General Settings</h2>
+                <form class="admin-form" id="generalSettingsForm">
+                    <div class="admin-form-group">
+                        <label for="siteName">Site Name</label>
+                        <input type="text" id="siteName" placeholder="Clutch Incorporated" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="siteDescription">Site Description</label>
+                        <textarea id="siteDescription" placeholder="Enter site description" rows="3"></textarea>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="contactEmail">Contact Email</label>
+                        <input type="email" id="contactEmail" placeholder="contact@clutchinc.com" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="contactPhone">Contact Phone</label>
+                        <input type="tel" id="contactPhone" placeholder="+1 234 567 8900">
+                    </div>
+                    <button type="submit" class="admin-btn admin-btn-primary">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </form>
+            </div>
+
+            <div class="admin-content-card">
+                <h2>Platform Configuration</h2>
+                <form class="admin-form" id="platformSettingsForm">
+                    <div class="admin-form-group">
+                        <label for="maintenanceMode">Maintenance Mode</label>
+                        <select id="maintenanceMode" required>
+                            <option value="false">Disabled</option>
+                            <option value="true">Enabled</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="registrationStatus">User Registration</label>
+                        <select id="registrationStatus" required>
+                            <option value="open">Open</option>
+                            <option value="invite_only">Invite Only</option>
+                            <option value="closed">Closed</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="defaultCurrency">Default Currency</label>
+                        <select id="defaultCurrency" required>
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="NGN">NGN - Nigerian Naira</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="admin-btn admin-btn-primary">
+                        <i class="fas fa-save"></i> Save Configuration
+                    </button>
+                </form>
+            </div>
+
+            <div class="admin-content-card">
+                <h2>Data Management</h2>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <button class="admin-btn admin-btn-secondary" onclick="exportData()">
+                        <i class="fas fa-download"></i> Export All Data
+                    </button>
+                    <button class="admin-btn admin-btn-danger" onclick="clearAllData()">
+                        <i class="fas fa-trash"></i> Clear All Data
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+    <script src="admin-auth.js"></script>
+    <script src="settings.js"></script>
+</body>
+</html>

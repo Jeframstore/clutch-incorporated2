@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks - Admin Panel</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-logo">
+            <i class="fas fa-cube"></i>
+            <h2>Clutch Admin</h2>
+        </div>
+        <div class="admin-user">
+            <span id="adminUserName">Admin</span>
+            <button class="admin-logout-btn" id="adminLogoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Horizontal Navigation -->
+    <nav class="admin-nav">
+        <div class="admin-nav-container">
+            <a href="dashboard.html" class="admin-nav-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="users.html" class="admin-nav-link">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="tasks.html" class="admin-nav-link active">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="tutors.html" class="admin-nav-link">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Tutors</span>
+            </a>
+            <a href="customer-service.html" class="admin-nav-link">
+                <i class="fas fa-headset"></i>
+                <span>Customer Service</span>
+            </a>
+            <a href="admins.html" class="admin-nav-link">
+                <i class="fas fa-user-shield"></i>
+                <span>Admins</span>
+            </a>
+            <a href="settings.html" class="admin-nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <section class="admin-section">
+            <div class="admin-welcome">
+                <h1>Task Management</h1>
+                <p>Manage daily tasks for users - 24 tasks per day</p>
+            </div>
+
+            <!-- Task Navigation -->
+            <div class="task-navigation">
+                <button class="task-nav-btn" id="pastTasksBtn">
+                    <i class="fas fa-history"></i>
+                    Past Tasks
+                </button>
+                <button class="task-nav-btn active" id="presentTasksBtn">
+                    <i class="fas fa-clock"></i>
+                    Present Tasks
+                </button>
+                <button class="task-nav-btn" id="nextTasksBtn">
+                    <i class="fas fa-forward"></i>
+                    Next Tasks
+                </button>
+            </div>
+
+            <!-- Task Actions -->
+            <div class="task-actions">
+                <button class="admin-btn admin-btn-primary" id="resetTasksBtn">
+                    <i class="fas fa-sync-alt"></i> Reset Tasks for New Day
+                </button>
+                <div class="time-override">
+                    <label for="timeOverride">Override Time (Eastern):</label>
+                    <input type="datetime-local" id="timeOverride" class="time-input">
+                    <button class="admin-btn admin-btn-secondary" id="clearTimeOverride">
+                        <i class="fas fa-times"></i> Clear
+                    </button>
+                </div>
+                <span id="taskDateDisplay" class="task-date-display"></span>
+            </div>
+
+            <!-- Task Grid -->
+            <div class="task-grid" id="taskGrid">
+                <!-- Tasks will be loaded here -->
+            </div>
+
+            <!-- Task Editor Modal -->
+            <div class="task-modal" id="taskModal" style="display: none;">
+                <div class="task-modal-content">
+                    <div class="task-modal-header">
+                        <h2 id="taskModalTitle">Edit Task</h2>
+                        <button class="task-modal-close" id="taskModalClose">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="task-modal-body">
+                        <form class="admin-form" id="taskEditForm">
+                            <div class="admin-form-group">
+                                <label>Task Photo</label>
+                                <div class="photo-upload" id="photoUpload">
+                                    <input type="file" id="taskPhoto" accept="image/*" style="display: none;">
+                                    <div class="photo-preview" id="photoPreview">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                        <span>Click to upload photo</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="admin-form-group">
+                                <label for="taskNumber">Task Number</label>
+                                <input type="text" id="taskNumber" readonly>
+                            </div>
+
+                            <div class="admin-form-group">
+                                <label for="taskName">Task Name</label>
+                                <input type="text" id="taskName" placeholder="Enter task name">
+                            </div>
+
+                            <div class="admin-form-group">
+                                <label for="taskDuration">Task Duration</label>
+                                <input type="text" id="taskDuration" value="20 minutes">
+                            </div>
+
+                            <div class="admin-form-group">
+                                <label for="taskInstructions">Instructions</label>
+                                <textarea id="taskInstructions" rows="4"></textarea>
+                            </div>
+
+                            <div class="admin-form-group">
+                                <label for="taskBonus">Bonus</label>
+                                <textarea id="taskBonus" rows="2"></textarea>
+                            </div>
+
+                            <div class="admin-form-group">
+                                <label for="taskImportantNote">Important Note</label>
+                                <textarea id="taskImportantNote" rows="2"></textarea>
+                            </div>
+
+                            <!-- Premium Task Fields -->
+                            <div id="premiumTaskFields" style="display: none;">
+                                <div class="admin-form-group">
+                                    <label for="premiumTaskNumber">Premium Task Number</label>
+                                    <input type="text" id="premiumTaskNumber">
+                                </div>
+
+                                <div class="admin-form-group">
+                                    <label for="premiumAnnouncement">Premium Announcement</label>
+                                    <textarea id="premiumAnnouncement" rows="3"></textarea>
+                                </div>
+
+                                <div class="admin-form-group">
+                                    <label for="premiumEarnings">Earnings</label>
+                                    <textarea id="premiumEarnings" rows="4"></textarea>
+                                </div>
+
+                                <div class="admin-form-group">
+                                    <label for="premiumDescription">Premium Description</label>
+                                    <textarea id="premiumDescription" rows="6"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="task-modal-actions">
+                                <button type="submit" class="admin-btn admin-btn-primary">
+                                    <i class="fas fa-save"></i> Save Task
+                                </button>
+                                <button type="button" class="admin-btn admin-btn-secondary" id="cancelTaskEdit">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+    <script src="admin-auth.js"></script>
+    <script src="tasks.js"></script>
+</body>
+</html>

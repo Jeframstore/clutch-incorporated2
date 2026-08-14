@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service - Admin Panel</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-logo">
+            <i class="fas fa-cube"></i>
+            <h2>Clutch Admin</h2>
+        </div>
+        <div class="admin-user">
+            <span id="adminUserName">Admin</span>
+            <button class="admin-logout-btn" id="adminLogoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Horizontal Navigation -->
+    <nav class="admin-nav">
+        <div class="admin-nav-container">
+            <a href="dashboard.html" class="admin-nav-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="users.html" class="admin-nav-link">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="tasks.html" class="admin-nav-link">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="tutors.html" class="admin-nav-link">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Tutors</span>
+            </a>
+            <a href="customer-service.html" class="admin-nav-link active">
+                <i class="fas fa-headset"></i>
+                <span>Customer Service</span>
+            </a>
+            <a href="admins.html" class="admin-nav-link">
+                <i class="fas fa-user-shield"></i>
+                <span>Admins</span>
+            </a>
+            <a href="settings.html" class="admin-nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <section class="admin-section">
+            <div class="admin-welcome">
+                <h1>Customer Service Settings</h1>
+                <p>Manage customer service Telegram account and settings</p>
+            </div>
+
+            <div class="admin-content-card">
+                <h2>Customer Service Configuration</h2>
+                <form class="admin-form" id="customerServiceForm">
+                    <div class="admin-form-group">
+                        <label for="customerServiceTelegram">Customer Service Telegram Username</label>
+                        <input type="text" id="customerServiceTelegram" placeholder="Enter customer service Telegram username (without @)" required>
+                        <small style="color: #64748b; font-size: 0.85rem;">This will be assigned as the permanent customer service for all users</small>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="customerServiceStatus">Service Status</label>
+                        <select id="customerServiceStatus" required>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                            <option value="maintenance">Maintenance</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="customerServiceHours">Service Hours</label>
+                        <input type="text" id="customerServiceHours" placeholder="e.g., 9:00 AM - 6:00 PM" required>
+                    </div>
+                    <button type="submit" class="admin-btn admin-btn-primary">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                </form>
+            </div>
+
+            <div class="admin-content-card">
+                <h2>Current Configuration</h2>
+                <div id="currentConfig" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div style="padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                        <h4 style="color: #64748b; margin-bottom: 0.5rem;">Telegram Username</h4>
+                        <p id="displayTelegram" style="font-size: 1.1rem; font-weight: 600; margin: 0;">@clutch_customerservice</p>
+                    </div>
+                    <div style="padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                        <h4 style="color: #64748b; margin-bottom: 0.5rem;">Status</h4>
+                        <p id="displayStatus" style="font-size: 1.1rem; font-weight: 600; margin: 0;">Active</p>
+                    </div>
+                    <div style="padding: 1rem; background: #f8fafc; border-radius: 8px;">
+                        <h4 style="color: #64748b; margin-bottom: 0.5rem;">Service Hours</h4>
+                        <p id="displayHours" style="font-size: 1.1rem; font-weight: 600; margin: 0;">9:00 AM - 6:00 PM</p>
+                    </div>
+                </div>
+                <div style="margin-top: 1.5rem;">
+                    <a href="https://t.me/clutch_customerservice" target="_blank" class="admin-btn admin-btn-primary" style="text-decoration: none; display: inline-flex;">
+                        <i class="fab fa-telegram"></i> Open Customer Service Telegram
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+    <script src="admin-auth.js"></script>
+    <script src="customer-service.js"></script>
+</body>
+</html>

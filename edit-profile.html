@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Clutch Incorporated</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Content -->
+    <main>
+        <section class="section">
+            <div class="auth-container">
+                <!-- Header with Back Button -->
+                <div class="edit-profile-header">
+                    <button class="back-btn" id="backBtn">
+                        <i class="fas fa-arrow-left"></i>
+                        Back
+                    </button>
+                    <h2>Edit Profile</h2>
+                </div>
+
+                <!-- Edit Profile Form -->
+                <form class="auth-form active" id="editProfileForm">
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" placeholder="Enter email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editNumber">Number</label>
+                        <input type="tel" id="editNumber" placeholder="Enter phone number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editCurrentPassword">Current Password</label>
+                        <div class="password-input">
+                            <input type="password" id="editCurrentPassword" placeholder="Enter current password" required>
+                            <button type="button" class="toggle-password" data-target="editCurrentPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editNewPassword">New Password</label>
+                        <div class="password-input">
+                            <input type="password" id="editNewPassword" placeholder="Enter new password">
+                            <button type="button" class="toggle-password" data-target="editNewPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="editConfirmPassword">Confirm New Password</label>
+                        <div class="password-input">
+                            <input type="password" id="editConfirmPassword" placeholder="Confirm new password">
+                            <button type="button" class="toggle-password" data-target="editConfirmPassword">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Save Changes</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Liquid Navigation at Bottom -->
+    <nav class="liquid-nav">
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li>
+                    <a href="home.html" class="nav-link">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="nav-link active">
+                        <i class="fas fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="tasks.html" class="nav-link">
+                        <i class="fas fa-tasks"></i>
+                        <span>Tasks</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="trade.html" class="nav-link">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Trade</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat.html" class="nav-link">
+                        <i class="fas fa-comments"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+    <script src="auth-check.js"></script>
+    <script src="edit-profile.js"></script>
+</body>
+</html>
