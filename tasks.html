@@ -15,33 +15,25 @@
                 <h1>Daily Tasks</h1>
                 <p>Complete your daily tasks to earn rewards</p>
 
-                <!-- Task Slider -->
-                <div class="task-slider-container">
-                    <button class="slider-nav-btn slider-prev" id="sliderPrev">
-                        <i class="fas fa-chevron-left"></i>
+                <!-- Task Buttons -->
+                <div class="task-buttons">
+                    <button class="task-btn past-btn active" data-category="past">
+                        <i class="fas fa-history"></i>
+                        <span>Past Tasks</span>
                     </button>
-                    
-                    <div class="task-slider">
-                        <div class="task-slide" id="taskSlide">
-                            <!-- Task content will be loaded here -->
-                        </div>
-                    </div>
-                    
-                    <button class="slider-nav-btn slider-next" id="sliderNext">
-                        <i class="fas fa-chevron-right"></i>
+                    <button class="task-btn present-btn" data-category="present">
+                        <i class="fas fa-clock"></i>
+                        <span>Present Task</span>
+                    </button>
+                    <button class="task-btn next-btn" data-category="next">
+                        <i class="fas fa-forward"></i>
+                        <span>Next Task</span>
                     </button>
                 </div>
 
-                <!-- Slider Indicators -->
-                <div class="slider-indicators">
-                    <span class="indicator" data-slide="0"></span>
-                    <span class="indicator" data-slide="1"></span>
-                    <span class="indicator" data-slide="2"></span>
-                </div>
-
-                <!-- Slide Labels -->
-                <div class="slide-labels">
-                    <span class="slide-label" id="slideLabel">Past Tasks</span>
+                <!-- Task Content Area -->
+                <div class="task-content-area" id="taskContent">
+                    <!-- Task content will be loaded here -->
                 </div>
             </div>
         </section>

@@ -1019,136 +1019,93 @@ body {
     margin-top: 2rem;
 }
 
-/* Task Slider */
-.task-slider-container {
+/* Task Buttons */
+.task-buttons {
     display: flex;
-    align-items: center;
     gap: 1rem;
     margin-top: 2rem;
+    justify-content: center;
 }
 
-.task-slider {
+.task-btn {
     flex: 1;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    min-height: 400px;
-}
-
-.task-slide {
-    padding: 1.5rem;
-    min-height: 400px;
+    max-width: 200px;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-.task-slide.past-slide {
-    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+.task-btn i {
+    font-size: 1.5rem;
 }
 
-.task-slide.present-slide {
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+.task-btn.past-btn {
+    background: linear-gradient(135deg, #e5e7eb, #d1d5db);
+    color: #4b5563;
 }
 
-.task-slide.next-slide {
-    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+.task-btn.present-btn {
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    color: #1e40af;
 }
 
-.empty-slide {
+.task-btn.next-btn {
+    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    color: #065f46;
+}
+
+.task-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.task-btn.active {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    border: 3px solid var(--primary-color);
+}
+
+.task-content-area {
+    margin-top: 2rem;
+    min-height: 400px;
+}
+
+.empty-category {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 300px;
+    padding: 2rem;
+    border-radius: 16px;
     color: #64748b;
 }
 
-.empty-slide i {
+.empty-category i {
     font-size: 3rem;
     margin-bottom: 1rem;
     opacity: 0.5;
 }
 
-.empty-slide h3 {
+.empty-category h3 {
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.5rem;
     color: #475569;
 }
 
-.empty-slide p {
+.empty-category p {
     font-size: 1rem;
     color: #64748b;
-}
-
-.slider-nav-btn {
-    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    color: white;
-    border: none;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 1.25rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-    flex-shrink: 0;
-}
-
-.slider-nav-btn:hover {
-    transform: scale(1.1);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
-}
-
-.slider-nav-btn:disabled {
-    background: #e2e8f0;
-    cursor: not-allowed;
-    opacity: 0.5;
-    transform: none;
-    box-shadow: none;
-}
-
-.slider-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-}
-
-.indicator {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #e2e8f0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.indicator.active {
-    background: var(--primary-color);
-    transform: scale(1.2);
-}
-
-.indicator:hover {
-    background: #cbd5e1;
-}
-
-.indicator.active:hover {
-    background: var(--primary-color);
-}
-
-.slide-labels {
-    text-align: center;
-    margin-top: 1rem;
-}
-
-.slide-label {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-color);
 }
 
 /* Task Sections */
