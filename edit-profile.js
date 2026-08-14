@@ -5,11 +5,15 @@ document.addEventListener('DOMContentLoaded', function() {
     const togglePasswordButtons = document.querySelectorAll('.toggle-password');
 
     // Load current user data
+    const userName = localStorage.getItem('userName') || '';
     const userEmail = localStorage.getItem('userEmail') || '';
     const userNumber = localStorage.getItem('userNumber') || '';
+    const userInvitationCode = localStorage.getItem('userInvitationCode') || '';
 
+    document.getElementById('editName').value = userName;
     document.getElementById('editEmail').value = userEmail;
     document.getElementById('editNumber').value = userNumber;
+    document.getElementById('editInvitationCode').value = userInvitationCode;
 
     // Back button functionality
     backBtn.addEventListener('click', function() {
@@ -39,29 +43,78 @@ document.addEventListener('DOMContentLoaded', function() {
     editProfileForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        const email = document.getElementById('editEmail').value;
-        const number = document.getElementById('editNumber').value;
+        const newName = document.getElementById('editName').value.trim();
+        const newEmail = document.getElementById('editEmail').value.trim();
+        const newNumber = document.getElementById('editNumber').value.trim();
+        const newInvitationCode = document.getElementById('editInvitationCode').value.trim();
         const currentPassword = document.getElementById('editCurrentPassword').value;
         const newPassword = document.getElementById('editNewPassword').value;
         const confirmPassword = document.getElementById('editConfirmPassword').value;
 
-        // Validate password change if new password is provided
-        if (newPassword && newPassword !== confirmPassword) {
-            alert('New passwords do not match!');
+        // Get current user data from allUsers to verify password
+        const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+        const userIndex = allUsers.findIndex(u => u.email === userEmail);
+        
+        if (userIndex === -1) {
+            alert('User not found. Please contact support.');
             return;
         }
 
-        // Update user data in localStorage
-        localStorage.setItem('userEmail', email);
-        localStorage.setItem('userNumber', number);
+        // Check if password change is requested
+        if (newPassword || confirmPassword) {
+            if (!currentPassword) {
+                alert('Please enter your current password to change your password.');
+                return;
+            }
+            
+            if (currentPassword !== allUsers[userIndex].password) {
+                alert('Current password is incorrect.');
+                return;
+            }
+            
+            if (newPassword !== confirmPassword) {
+                alert('New password and confirm password do not match.');
+                return;
+            }
+            
+            if (newPassword.length < 6) {
+                alert('New password must be at least 6 characters long.');
+                return;
+            }
+        }
 
+        // Update localStorage
+        localStorage.setItem('userName', newName);
+        localStorage.setItem('userEmail', newEmail);
+        localStorage.setItem('userNumber', newNumber);
+        localStorage.setItem('userInvitationCode', newInvitationCode);
+
+        // Update in allUsers array as well
+        allUsers[userIndex].name = newName;
+        allUsers[userIndex].email = newEmail;
+        allUsers[userIndex].number = newNumber;
+        allUsers[userIndex].invitationCode = newInvitationCode;
+        
+        // Update password if changed
         if (newPassword) {
-            localStorage.setItem('userPassword', newPassword);
+            allUsers[userIndex].password = newPassword;
+        }
+        
+        localStorage.setItem('allUsers', JSON.stringify(allUsers));
+
+        // Update tutor assignments if email changed
+        if (newEmail !== userEmail) {
+            const tutorAssignments = JSON.parse(localStorage.getItem('tutorAssignments') || '{}');
+            if (tutorAssignments[userEmail]) {
+                tutorAssignments[newEmail] = tutorAssignments[userEmail];
+                delete tutorAssignments[userEmail];
+                localStorage.setItem('tutorAssignments', JSON.stringify(tutorAssignments));
+            }
         }
 
         alert('Profile updated successfully!');
-        setTimeout(() => {
-            window.location.href = 'profile.html';
-        }, 500);
+        
+        // Redirect to profile page
+        window.location.href = 'profile.html';
     });
 });

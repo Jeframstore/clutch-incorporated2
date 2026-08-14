@@ -24,6 +24,11 @@
                 <!-- Edit Profile Form -->
                 <form class="auth-form active" id="editProfileForm">
                     <div class="form-group">
+                        <label for="editName">Name</label>
+                        <input type="text" id="editName" placeholder="Enter name" required>
+                    </div>
+
+                    <div class="form-group">
                         <label for="editEmail">Email</label>
                         <input type="email" id="editEmail" placeholder="Enter email" required>
                     </div>
@@ -34,9 +39,14 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="editInvitationCode">Invitation Code</label>
+                        <input type="text" id="editInvitationCode" placeholder="Invitation code" readonly style="background: #f1f5f9; cursor: not-allowed;">
+                    </div>
+
+                    <div class="form-group">
                         <label for="editCurrentPassword">Current Password</label>
                         <div class="password-input">
-                            <input type="password" id="editCurrentPassword" placeholder="Enter current password" required>
+                            <input type="password" id="editCurrentPassword" placeholder="Enter current password">
                             <button type="button" class="toggle-password" data-target="editCurrentPassword">
                                 <i class="fas fa-eye"></i>
                             </button>
@@ -63,7 +73,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="submit-btn">Save Changes</button>
+                    <button type="submit" class="submit-btn">Save</button>
                 </form>
             </div>
         </section>
