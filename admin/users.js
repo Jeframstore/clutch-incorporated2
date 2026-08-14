@@ -81,12 +81,7 @@ function setupSearch() {
 }
 
 function viewUser(email) {
-    const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
-    const user = allUsers.find(u => u.email === email);
-    
-    if (user) {
-        alert(`User Details:\n\nName: ${user.name}\nEmail: ${user.email}\nNumber: ${user.number}\nInvitation Code: ${user.invitationCode}\nTotal Amount: $${user.totalAmount || '0.00'}\nRegistered: ${new Date(user.registeredAt).toLocaleString()}`);
-    }
+    window.location.href = `view-user.html?email=${encodeURIComponent(email)}`;
 }
 
 function deleteUser(email) {
