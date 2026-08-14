@@ -15,26 +15,36 @@
                 <h1>Daily Tasks</h1>
                 <p>Complete your daily tasks to earn rewards</p>
 
-                <!-- Single Task View -->
-                <div class="single-task-view">
-                    <!-- Task Navigation -->
-                    <div class="task-navigation-arrows">
-                        <button class="task-nav-arrow" id="prevTaskBtn">
-                            <i class="fas fa-chevron-left"></i>
-                            Previous
-                        </button>
-                        <div class="task-counter">
-                            <span id="currentTaskNumber">1</span> / <span id="totalTasks">24</span>
+                <!-- Task Sections -->
+                <div class="task-sections">
+                    <!-- Past Tasks Section -->
+                    <div class="task-section past-tasks-section">
+                        <h2 class="section-title past-title">
+                            <i class="fas fa-history"></i> Past Tasks
+                        </h2>
+                        <div class="task-section-content" id="pastTasks">
+                            <!-- Past tasks will be loaded here -->
                         </div>
-                        <button class="task-nav-arrow" id="nextTaskBtn">
-                            Next
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
                     </div>
 
-                    <!-- Task Display -->
-                    <div class="task-display" id="taskDisplay">
-                        <!-- Current task will be loaded here -->
+                    <!-- Present Task Section -->
+                    <div class="task-section present-task-section">
+                        <h2 class="section-title present-title">
+                            <i class="fas fa-clock"></i> Present Task
+                        </h2>
+                        <div class="task-section-content" id="presentTask">
+                            <!-- Present task will be loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Next Task Section -->
+                    <div class="task-section next-task-section">
+                        <h2 class="section-title next-title">
+                            <i class="fas fa-forward"></i> Next Task
+                        </h2>
+                        <div class="task-section-content" id="nextTask">
+                            <!-- Next task will be loaded here -->
+                        </div>
                     </div>
                 </div>
             </div>
