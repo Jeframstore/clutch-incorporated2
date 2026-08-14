@@ -113,34 +113,57 @@ function updateSlide() {
     let tasks = [];
     let label = '';
     let timePeriod = '';
+    let slideClass = '';
 
     switch(currentSlide) {
         case 0:
             tasks = slideData.past;
             label = 'Past Tasks';
             timePeriod = 'past';
+            slideClass = 'past-slide';
             break;
         case 1:
             tasks = slideData.present;
             label = 'Present Task';
             timePeriod = 'present';
+            slideClass = 'present-slide';
             break;
         case 2:
             tasks = slideData.next;
             label = 'Next Task';
             timePeriod = 'next';
+            slideClass = 'next-slide';
             break;
     }
 
     slideLabel.textContent = label;
+    taskSlide.className = `task-slide ${slideClass}`;
 
     if (tasks.length === 0) {
         if (timePeriod === 'past') {
-            taskSlide.innerHTML = '<div style="text-align: center; color: #64748b; padding: 2rem;">No past tasks yet.</div>';
+            taskSlide.innerHTML = `
+                <div class="empty-slide">
+                    <i class="fas fa-history"></i>
+                    <h3>No Past Tasks</h3>
+                    <p>Tasks you've completed will appear here</p>
+                </div>
+            `;
         } else if (timePeriod === 'present') {
-            taskSlide.innerHTML = '<div style="text-align: center; color: #64748b; padding: 2rem;">No active task at this time.</div>';
+            taskSlide.innerHTML = `
+                <div class="empty-slide">
+                    <i class="fas fa-clock"></i>
+                    <h3>No Active Task</h3>
+                    <p>Check back when a task is scheduled</p>
+                </div>
+            `;
         } else if (timePeriod === 'next') {
-            taskSlide.innerHTML = '<div style="text-align: center; color: #64748b; padding: 2rem;">No upcoming tasks today.</div>';
+            taskSlide.innerHTML = `
+                <div class="empty-slide">
+                    <i class="fas fa-forward"></i>
+                    <h3>No Upcoming Tasks</h3>
+                    <p>Your next task will appear here</p>
+                </div>
+            `;
         }
         return;
     }

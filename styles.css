@@ -1039,6 +1039,46 @@ body {
 .task-slide {
     padding: 1.5rem;
     min-height: 400px;
+    transition: all 0.3s ease;
+}
+
+.task-slide.past-slide {
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+
+.task-slide.present-slide {
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+}
+
+.task-slide.next-slide {
+    background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+}
+
+.empty-slide {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    color: #64748b;
+}
+
+.empty-slide i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-slide h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #475569;
+}
+
+.empty-slide p {
+    font-size: 1rem;
+    color: #64748b;
 }
 
 .slider-nav-btn {
