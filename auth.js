@@ -57,8 +57,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log('Login attempt:', { email, password, userCode, rememberMe });
         
-        // Simulate successful login (replace with actual authentication)
+        // Check if user exists in allUsers array
+        const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+        const user = allUsers.find(u => u.email === email);
+        
+        if (!user) {
+            alert('User not found. Please check your email or register a new account.');
+            return;
+        }
+        
+        // Check if password matches
+        if (user.password !== password) {
+            alert('Incorrect password. Please try again.');
+            return;
+        }
+        
+        // Check if invitation code matches (if provided)
+        if (userCode && userCode !== user.invitationCode) {
+            alert('Invalid invitation code.');
+            return;
+        }
+        
+        // Successful login
         localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('userName', user.name);
+        localStorage.setItem('userEmail', user.email);
+        localStorage.setItem('userNumber', user.number);
+        localStorage.setItem('userInvitationCode', user.invitationCode);
+        localStorage.setItem('userTotalAmount', user.totalAmount || '0.00');
+        
         if (rememberMe) {
             localStorage.setItem('rememberedEmail', email);
         }
@@ -97,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             email: email,
             number: number,
             invitationCode: invitationCode,
+            password: password,
             totalAmount: '0.00',
             registeredAt: new Date().toISOString()
         });
