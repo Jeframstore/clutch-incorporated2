@@ -91,6 +91,42 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Balance Management Modal -->
+            <div id="balanceModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+                <div style="background: white; padding: 2rem; border-radius: 16px; max-width: 500px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+                    <h3 style="margin-top: 0; margin-bottom: 1.5rem;">Manage User Balance</h3>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">User</label>
+                        <p id="modalUserName" style="margin: 0; color: #64748b;">-</p>
+                        <p id="modalUserEmail" style="margin: 0; color: #64748b; font-size: 0.9rem;">-</p>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Current Balance</label>
+                        <p id="modalCurrentBalance" style="margin: 0; font-size: 1.25rem; font-weight: 700; color: #2563eb;">$0.00</p>
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label for="balanceAmount" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Amount</label>
+                        <input type="number" id="balanceAmount" placeholder="Enter amount" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
+                    </div>
+                    <div style="margin-bottom: 1.5rem;">
+                        <label style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Action</label>
+                        <div style="display: flex; gap: 1rem;">
+                            <button type="button" id="addBalanceBtn" class="admin-btn admin-btn-primary" style="flex: 1; padding: 0.75rem;">
+                                <i class="fas fa-plus"></i> Add
+                            </button>
+                            <button type="button" id="subtractBalanceBtn" class="admin-btn admin-btn-danger" style="flex: 1; padding: 0.75rem;">
+                                <i class="fas fa-minus"></i> Subtract
+                            </button>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem;">
+                        <button type="button" id="closeModalBtn" class="admin-btn" style="flex: 1; padding: 0.75rem; background: #e2e8f0; color: #475569;">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 

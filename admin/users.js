@@ -2,7 +2,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     loadUsers();
     setupSearch();
+    setupBalanceModal();
 });
+
+let selectedUserEmail = null;
 
 function loadUsers() {
     const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
@@ -24,6 +27,9 @@ function loadUsers() {
             <td>
                 <button class="admin-btn admin-btn-primary" onclick="viewUser('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                     <i class="fas fa-eye"></i> View
+                </button>
+                <button class="admin-btn admin-btn-success" onclick="openBalanceModal('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                    <i class="fas fa-dollar-sign"></i> Balance
                 </button>
                 <button class="admin-btn admin-btn-danger" onclick="deleteUser('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                     <i class="fas fa-trash"></i> Delete
@@ -62,6 +68,9 @@ function setupSearch() {
                     <button class="admin-btn admin-btn-primary" onclick="viewUser('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                         <i class="fas fa-eye"></i> View
                     </button>
+                    <button class="admin-btn admin-btn-success" onclick="openBalanceModal('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                        <i class="fas fa-dollar-sign"></i> Balance
+                    </button>
                     <button class="admin-btn admin-btn-danger" onclick="deleteUser('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                         <i class="fas fa-trash"></i> Delete
                     </button>
@@ -94,4 +103,92 @@ function deleteUser(email) {
         loadUsers();
         alert('User deleted successfully.');
     }
+}
+
+function setupBalanceModal() {
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const addBalanceBtn = document.getElementById('addBalanceBtn');
+    const subtractBalanceBtn = document.getElementById('subtractBalanceBtn');
+    const balanceModal = document.getElementById('balanceModal');
+
+    closeModalBtn.addEventListener('click', () => {
+        balanceModal.style.display = 'none';
+        selectedUserEmail = null;
+    });
+
+    addBalanceBtn.addEventListener('click', () => {
+        updateBalance('add');
+    });
+
+    subtractBalanceBtn.addEventListener('click', () => {
+        updateBalance('subtract');
+    });
+
+    // Close modal when clicking outside
+    balanceModal.addEventListener('click', (e) => {
+        if (e.target === balanceModal) {
+            balanceModal.style.display = 'none';
+            selectedUserEmail = null;
+        }
+    });
+}
+
+function openBalanceModal(email) {
+    const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+    const user = allUsers.find(u => u.email === email);
+    
+    if (user) {
+        selectedUserEmail = email;
+        document.getElementById('modalUserName').textContent = user.name;
+        document.getElementById('modalUserEmail').textContent = user.email;
+        document.getElementById('modalCurrentBalance').textContent = `$${user.totalAmount || '0.00'}`;
+        document.getElementById('balanceAmount').value = '';
+        document.getElementById('balanceModal').style.display = 'flex';
+    }
+}
+
+function updateBalance(action) {
+    const amount = parseFloat(document.getElementById('balanceAmount').value);
+    
+    if (isNaN(amount) || amount <= 0) {
+        alert('Please enter a valid amount greater than 0');
+        return;
+    }
+
+    const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+    const userIndex = allUsers.findIndex(u => u.email === selectedUserEmail);
+    
+    if (userIndex === -1) {
+        alert('User not found');
+        return;
+    }
+
+    const currentBalance = parseFloat(allUsers[userIndex].totalAmount) || 0;
+    let newBalance;
+
+    if (action === 'add') {
+        newBalance = currentBalance + amount;
+    } else if (action === 'subtract') {
+        newBalance = currentBalance - amount;
+        if (newBalance < 0) {
+            if (!confirm('This will make the balance negative. Continue?')) {
+                return;
+            }
+        }
+    }
+
+    allUsers[userIndex].totalAmount = newBalance.toFixed(2);
+    localStorage.setItem('allUsers', JSON.stringify(allUsers));
+
+    // Update the user's localStorage as well
+    localStorage.setItem('userTotalAmount', newBalance.toFixed(2));
+
+    // Update modal display
+    document.getElementById('modalCurrentBalance').textContent = `$${newBalance.toFixed(2)}`;
+    document.getElementById('balanceAmount').value = '';
+
+    // Refresh the users table
+    loadUsers();
+
+    alert(`Successfully ${action === 'add' ? 'added' : 'subtracted'} $${amount.toFixed(2)} to ${allUsers[userIndex].name}'s balance. New balance: $${newBalance.toFixed(2)}`);
 }
