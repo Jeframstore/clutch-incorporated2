@@ -59,7 +59,7 @@
 
     <!-- Edit Profile Modal -->
     <div id="editProfileModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-        <div style="background: white; padding: 2rem; border-radius: 16px; max-width: 500px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+        <div style="background: white; padding: 2rem; border-radius: 16px; max-width: 500px; width: 90%; box-shadow: 0 10px 40px rgba(0,0,0,0.2);max-height: 90vh; overflow-y: auto;">
             <h3 style="margin-top: 0; margin-bottom: 1.5rem;">Edit Profile</h3>
             <form id="editProfileForm">
                 <div style="margin-bottom: 1rem;">
@@ -67,12 +67,28 @@
                     <input type="text" id="editName" required style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
                 </div>
                 <div style="margin-bottom: 1rem;">
+                    <label for="editEmail" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Email</label>
+                    <input type="email" id="editEmail" required style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
                     <label for="editNumber" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Number</label>
                     <input type="text" id="editNumber" required style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
                 </div>
-                <div style="margin-bottom: 1.5rem;">
+                <div style="margin-bottom: 1rem;">
                     <label for="editInvitationCode" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Invitation Code</label>
                     <input type="text" id="editInvitationCode" required style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="currentPassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Current Password</label>
+                    <input type="password" id="currentPassword" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <label for="newPassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">New Password</label>
+                    <input type="password" id="newPassword" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <label for="confirmPassword" style="display: block; margin-bottom: 0.5rem; font-weight: 600;">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" style="width: 100%; padding: 0.75rem; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;">
                 </div>
                 <div style="display: flex; gap: 1rem;">
                     <button type="submit" class="edit-profile-btn" style="flex: 1; padding: 0.75rem;">
@@ -166,8 +182,12 @@
             editProfileBtn.addEventListener('click', function() {
                 // Pre-fill form with current data
                 document.getElementById('editName').value = userName;
+                document.getElementById('editEmail').value = userEmail;
                 document.getElementById('editNumber').value = userNumber;
                 document.getElementById('editInvitationCode').value = userInvitationCode;
+                document.getElementById('currentPassword').value = '';
+                document.getElementById('newPassword').value = '';
+                document.getElementById('confirmPassword').value = '';
                 editProfileModal.style.display = 'flex';
             });
 
@@ -187,32 +207,88 @@
                 e.preventDefault();
                 
                 const newName = document.getElementById('editName').value.trim();
+                const newEmail = document.getElementById('editEmail').value.trim();
                 const newNumber = document.getElementById('editNumber').value.trim();
                 const newInvitationCode = document.getElementById('editInvitationCode').value.trim();
+                const currentPassword = document.getElementById('currentPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+
+                // Get current user data from allUsers to verify password
+                const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
+                const userIndex = allUsers.findIndex(u => u.email === userEmail);
+                
+                if (userIndex === -1) {
+                    alert('User not found. Please contact support.');
+                    return;
+                }
+
+                // Check if password change is requested
+                if (newPassword || confirmPassword) {
+                    if (!currentPassword) {
+                        alert('Please enter your current password to change your password.');
+                        return;
+                    }
+                    
+                    if (currentPassword !== allUsers[userIndex].password) {
+                        alert('Current password is incorrect.');
+                        return;
+                    }
+                    
+                    if (newPassword !== confirmPassword) {
+                        alert('New password and confirm password do not match.');
+                        return;
+                    }
+                    
+                    if (newPassword.length < 6) {
+                        alert('New password must be at least 6 characters long.');
+                        return;
+                    }
+                }
 
                 // Update localStorage
                 localStorage.setItem('userName', newName);
+                localStorage.setItem('userEmail', newEmail);
                 localStorage.setItem('userNumber', newNumber);
                 localStorage.setItem('userInvitationCode', newInvitationCode);
 
                 // Update display
                 document.getElementById('userName').textContent = newName;
+                document.getElementById('userEmail').textContent = newEmail;
                 document.getElementById('userNumber').textContent = newNumber;
                 document.getElementById('userInvitationCode').textContent = newInvitationCode;
                 document.getElementById('welcomeMessage').textContent = `Welcome back, ${newName}!`;
 
                 // Update in allUsers array as well
-                const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
-                const userIndex = allUsers.findIndex(u => u.email === userEmail);
-                if (userIndex !== -1) {
-                    allUsers[userIndex].name = newName;
-                    allUsers[userIndex].number = newNumber;
-                    allUsers[userIndex].invitationCode = newInvitationCode;
-                    localStorage.setItem('allUsers', JSON.stringify(allUsers));
+                allUsers[userIndex].name = newName;
+                allUsers[userIndex].email = newEmail;
+                allUsers[userIndex].number = newNumber;
+                allUsers[userIndex].invitationCode = newInvitationCode;
+                
+                // Update password if changed
+                if (newPassword) {
+                    allUsers[userIndex].password = newPassword;
+                }
+                
+                localStorage.setItem('allUsers', JSON.stringify(allUsers));
+
+                // Update tutor assignments if email changed
+                if (newEmail !== userEmail) {
+                    const tutorAssignments = JSON.parse(localStorage.getItem('tutorAssignments') || '{}');
+                    if (tutorAssignments[userEmail]) {
+                        tutorAssignments[newEmail] = tutorAssignments[userEmail];
+                        delete tutorAssignments[userEmail];
+                        localStorage.setItem('tutorAssignments', JSON.stringify(tutorAssignments));
+                    }
                 }
 
                 editProfileModal.style.display = 'none';
                 alert('Profile updated successfully!');
+                
+                // Refresh page if email changed to update localStorage references
+                if (newEmail !== userEmail) {
+                    location.reload();
+                }
             });
         });
     </script>
