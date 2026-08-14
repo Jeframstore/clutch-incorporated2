@@ -13,11 +13,13 @@ function getEasternTime() {
 
 function loadCurrentTask() {
     dailyTasks = JSON.parse(localStorage.getItem('dailyTasks') || '[]');
+    console.log('Loaded dailyTasks:', dailyTasks);
     
     if (dailyTasks.length === 0) {
         document.getElementById('pastTasks').innerHTML = '<div style="text-align: center; color: #64748b; padding: 2rem;">No tasks available.</div>';
         document.getElementById('presentTask').innerHTML = '<div style="text-align: center; color: #64748b; padding: 2rem;">No tasks available.</div>';
         document.getElementById('nextTask').innerHTML = '<div style="text-align: center; color: #64748b; padding: 2rem;">No tasks available.</div>';
+        console.log('No tasks found in localStorage');
         return;
     }
 
@@ -78,7 +80,13 @@ function loadCurrentTask() {
 }
 
 function displayTasksInSection(sectionId, tasks, timePeriod) {
+    console.log(`Displaying tasks in section ${sectionId}, count: ${tasks.length}`);
     const section = document.getElementById(sectionId);
+    
+    if (!section) {
+        console.error(`Section with ID ${sectionId} not found`);
+        return;
+    }
     
     if (tasks.length === 0) {
         if (timePeriod === 'past') {
@@ -189,6 +197,7 @@ function displayTasksInSection(sectionId, tasks, timePeriod) {
     });
     
     section.innerHTML = tasksHTML;
+    console.log(`Updated section ${sectionId} with ${tasks.length} tasks`);
 }
 
 function parseTime(timeStr) {
