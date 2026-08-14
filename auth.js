@@ -52,29 +52,22 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add login logic here
         const email = document.getElementById('loginEmail').value;
         const password = document.getElementById('loginPassword').value;
-        const userCode = document.getElementById('loginUserCode').value;
         const rememberMe = document.getElementById('rememberMe').checked;
 
-        console.log('Login attempt:', { email, password, userCode, rememberMe });
+        console.log('Login attempt:', { email, password, rememberMe });
         
-        // Check if user exists in allUsers array
+        // Check if user exists in allUsers array (by email or number)
         const allUsers = JSON.parse(localStorage.getItem('allUsers') || '[]');
-        const user = allUsers.find(u => u.email === email);
+        const user = allUsers.find(u => u.email === email || u.number === email);
         
         if (!user) {
-            alert('User not found. Please check your email or register a new account.');
+            alert('User not found. Please check your email/number or register a new account.');
             return;
         }
         
         // Check if password matches
         if (user.password !== password) {
             alert('Incorrect password. Please try again.');
-            return;
-        }
-        
-        // Check if invitation code matches (if provided)
-        if (userCode && userCode !== user.invitationCode) {
-            alert('Invalid invitation code.');
             return;
         }
         
@@ -87,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem('userTotalAmount', user.totalAmount || '0.00');
         
         if (rememberMe) {
-            localStorage.setItem('rememberedEmail', email);
+            localStorage.setItem('rememberedEmail', user.email);
         }
         
         alert('Login successful! Redirecting to home page...');
