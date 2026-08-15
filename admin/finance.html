@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance - Admin Panel</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-logo">
+            <i class="fas fa-cube"></i>
+            <h2>Clutch Admin</h2>
+        </div>
+        <div class="admin-user">
+            <span id="adminUserName">Admin</span>
+            <button class="admin-logout-btn" id="adminLogoutBtn">
+                <i class="fas fa-sign-out-alt"></i>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Horizontal Navigation -->
+    <nav class="admin-nav">
+        <div class="admin-nav-container">
+            <a href="dashboard.html" class="admin-nav-link">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="users.html" class="admin-nav-link">
+                <i class="fas fa-users"></i>
+                <span>Users</span>
+            </a>
+            <a href="tasks.html" class="admin-nav-link">
+                <i class="fas fa-tasks"></i>
+                <span>Tasks</span>
+            </a>
+            <a href="tutors.html" class="admin-nav-link">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Tutors</span>
+            </a>
+            <a href="customer-service.html" class="admin-nav-link">
+                <i class="fas fa-headset"></i>
+                <span>Customer Service</span>
+            </a>
+            <a href="admins.html" class="admin-nav-link">
+                <i class="fas fa-user-shield"></i>
+                <span>Admins</span>
+            </a>
+            <a href="finance.html" class="admin-nav-link active">
+                <i class="fas fa-wallet"></i>
+                <span>Finance</span>
+            </a>
+            <a href="settings.html" class="admin-nav-link">
+                <i class="fas fa-cog"></i>
+                <span>Settings</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <section class="admin-section">
+            <div class="admin-welcome">
+                <h1>Finance Management</h1>
+                <p>Manage deposits, withdrawals, and financial transactions</p>
+            </div>
+
+            <!-- Financial Stats -->
+            <div class="admin-stats-grid">
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon" style="background: #dbeafe; color: #2563eb;">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="admin-stat-content">
+                        <h3>Total Deposits</h3>
+                        <p id="totalDeposits">$0.00</p>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon" style="background: #fee2e2; color: #dc2626;">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="admin-stat-content">
+                        <h3>Total Withdrawals</h3>
+                        <p id="totalWithdrawals">$0.00</p>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="admin-stat-content">
+                        <h3>Pending Requests</h3>
+                        <p id="pendingRequests">0</p>
+                    </div>
+                </div>
+                <div class="admin-stat-card">
+                    <div class="admin-stat-icon" style="background: #d1fae5; color: #059669;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="admin-stat-content">
+                        <h3>Completed Transactions</h3>
+                        <p id="completedTransactions">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction Management -->
+            <div class="admin-content-card">
+                <h2>Transaction Requests</h2>
+                <div class="admin-table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>User</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTable">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: #64748b;">No transactions found</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add Transaction Form -->
+            <div class="admin-content-card">
+                <h2>Add Manual Transaction</h2>
+                <form class="admin-form" id="addTransactionForm">
+                    <div class="admin-form-group">
+                        <label for="transactionUser">Select User</label>
+                        <select id="transactionUser" required>
+                            <option value="">Select a user...</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="transactionType">Transaction Type</label>
+                        <select id="transactionType" required>
+                            <option value="deposit">Deposit</option>
+                            <option value="withdrawal">Withdrawal</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="transactionAmount">Amount ($)</label>
+                        <input type="number" id="transactionAmount" placeholder="Enter amount" min="0" step="0.01" required>
+                    </div>
+                    <div class="admin-form-group">
+                        <label for="transactionNotes">Notes</label>
+                        <textarea id="transactionNotes" placeholder="Add any notes..." rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="admin-btn admin-btn-primary">
+                        <i class="fas fa-plus"></i> Add Transaction
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script src="../script.js"></script>
+    <script src="admin-auth.js"></script>
+    <script src="finance.js"></script>
+</body>
+</html>

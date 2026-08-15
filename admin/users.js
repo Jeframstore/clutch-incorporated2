@@ -31,6 +31,12 @@ function loadUsers() {
                 <button class="admin-btn admin-btn-success" onclick="openBalanceModal('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                     <i class="fas fa-dollar-sign"></i> Balance
                 </button>
+                <button class="admin-btn admin-btn-info" onclick="addDeposit('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                    <i class="fas fa-arrow-down"></i> Deposit
+                </button>
+                <button class="admin-btn admin-btn-warning" onclick="addWithdrawal('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                    <i class="fas fa-arrow-up"></i> Withdraw
+                </button>
                 <button class="admin-btn admin-btn-danger" onclick="deleteUser('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                     <i class="fas fa-trash"></i> Delete
                 </button>
@@ -71,6 +77,12 @@ function setupSearch() {
                     <button class="admin-btn admin-btn-success" onclick="openBalanceModal('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                         <i class="fas fa-dollar-sign"></i> Balance
                     </button>
+                    <button class="admin-btn admin-btn-info" onclick="addDeposit('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                        <i class="fas fa-arrow-down"></i> Deposit
+                    </button>
+                    <button class="admin-btn admin-btn-warning" onclick="addWithdrawal('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
+                        <i class="fas fa-arrow-up"></i> Withdraw
+                    </button>
                     <button class="admin-btn admin-btn-danger" onclick="deleteUser('${user.email}')" style="padding: 0.5rem 0.75rem; font-size: 0.85rem;">
                         <i class="fas fa-trash"></i> Delete
                     </button>
@@ -82,6 +94,14 @@ function setupSearch() {
 
 function viewUser(email) {
     window.location.href = `view-user.html?email=${encodeURIComponent(email)}`;
+}
+
+function addDeposit(email) {
+    window.location.href = `finance.html?user=${encodeURIComponent(email)}&type=deposit`;
+}
+
+function addWithdrawal(email) {
+    window.location.href = `finance.html?user=${encodeURIComponent(email)}&type=withdrawal`;
 }
 
 function deleteUser(email) {
