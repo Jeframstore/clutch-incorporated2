@@ -15,6 +15,12 @@
                 <h1>Chat Support</h1>
                 <p>Connect with our support team and your personal tutor</p>
 
+                <!-- Action Notification -->
+                <div id="actionNotification" style="display: none; background: linear-gradient(135deg, #eff6ff, #dbeafe); border-left: 4px solid #2563eb; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                    <h3 id="actionTitle" style="color: #1e40af; margin-bottom: 0.5rem;"></h3>
+                    <p id="actionMessage" style="color: #64748b; margin: 0;"></p>
+                </div>
+
                 <div class="chat-options">
                     <!-- Customer Service Section -->
                     <div class="chat-option">
@@ -118,6 +124,23 @@
             const userSelect = document.getElementById('userSelect');
             const tutorUsername = document.getElementById('tutorUsername');
             const assignTutorBtn = document.getElementById('assignTutorBtn');
+            const actionNotification = document.getElementById('actionNotification');
+            const actionTitle = document.getElementById('actionTitle');
+            const actionMessage = document.getElementById('actionMessage');
+
+            // Check for action parameter (deposit or withdrawal)
+            const urlParams = new URLSearchParams(window.location.search);
+            const action = urlParams.get('action');
+
+            if (action === 'deposit') {
+                actionNotification.style.display = 'block';
+                actionTitle.textContent = '💰 Deposit Request';
+                actionMessage.textContent = 'Please contact Customer Service via Telegram to process your deposit. Send a screenshot of your deposit confirmation to the tutor.';
+            } else if (action === 'withdrawal') {
+                actionNotification.style.display = 'block';
+                actionTitle.textContent = '💸 Withdrawal Request';
+                actionMessage.textContent = 'Please contact Customer Service via Telegram to process your withdrawal. Send a screenshot of your withdrawal request to the tutor.';
+            }
 
             // Load customer service configuration
             const customerServiceConfig = JSON.parse(localStorage.getItem('customerServiceConfig') || '{}');
